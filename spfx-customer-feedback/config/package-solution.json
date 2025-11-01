@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "spfx-customer-feedback-client-side-solution",
+    "id": "ac555a6a-cb10-4ca3-b49b-0b9169f3a1e5",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.21.1"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "spfx-customer-feedback description"
+      },
+      "longDescription": {
+        "default": "spfx-customer-feedback description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "spfx-customer-feedback Feature",
+        "description": "The feature that activates elements of the spfx-customer-feedback solution.",
+        "id": "0331cec8-c243-4051-ab01-a4963e04db8b",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/spfx-customer-feedback.sppkg"
+  }
+}

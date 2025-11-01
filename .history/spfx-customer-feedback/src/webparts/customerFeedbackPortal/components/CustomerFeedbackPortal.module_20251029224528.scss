@@ -1,0 +1,130 @@
+.customerFeedbackPortal {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+
+    h2 {
+      color: #0078d4;
+      margin-bottom: 10px;
+      font-size:x-large;
+    }
+
+    .meta {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.4;
+
+      .env {
+        margin: 5px 0;
+      }
+
+      .description {
+        margin-top: 5px;
+      }
+    }
+  }
+
+  .feedbackForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  }
+
+  // Input and dropdown styles: rounded with grey border
+  .feedbackForm :global(.ms-TextField-fieldGroup) {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+
+  .feedbackForm :global(.ms-TextField-fieldGroup:hover) {
+    border-color: #b3b3b3;
+  }
+
+  .feedbackForm :global(.ms-TextField-fieldGroup.ms-TextField-fieldGroupIsFocused),
+  .feedbackForm :global(.ms-TextField-fieldGroup:focus-within) {
+    border-color: #20B2AA;
+    box-shadow: 0 0 0 1px rgba(32,178,170,0.2);
+    border-radius: 8px;
+  }
+
+  .feedbackForm :global(.ms-Dropdown-title) {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+
+  .feedbackForm :global(.ms-Dropdown:hover) :global(.ms-Dropdown-title) {
+    border-color: #b3b3b3;
+  }
+
+  .feedbackForm :global(.ms-Dropdown.is-open) :global(.ms-Dropdown-title),
+  .feedbackForm :global(.ms-Dropdown.is-focused) :global(.ms-Dropdown-title) {
+    border-color: #999;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.04);
+    border-radius: 8px;
+  }
+
+  // Rating star colors (override Fluent UI theme)
+  // Keep selected/front stars teal and do not change on hover
+  .feedbackForm :global(.ms-Rating .ms-Rating-starFront) {
+    color: #20B2AA !important;
+  }
+  // Explicitly force hover to keep the same color
+  .feedbackForm :global(.ms-Rating.is-enabled .ms-Rating-star:hover .ms-Rating-starFront),
+  .feedbackForm :global(.ms-Rating.is-enabled:hover .ms-Rating-star .ms-Rating-starFront),
+  .feedbackForm :global(.ms-Rating.is-enabled .ms-Rating-star:active .ms-Rating-starFront),
+  .feedbackForm :global(.ms-Rating.is-enabled .ms-Rating-star:focus .ms-Rating-starFront) {
+    color: #20B2AA !important;
+  }
+
+  // Submit button styling (PrimaryButton)
+  .feedbackForm :global(.ms-Button.ms-Button--primary) {
+    background-color: #20B2AA;
+    border-color: #20B2AA;
+    border-radius: 8px;
+  }
+  .feedbackForm :global(.ms-Button.ms-Button--primary:hover) {
+    background-color: #6fd3cd; // lighter
+    border-color: #6fd3cd;
+  }
+  .feedbackForm :global(.ms-Button.ms-Button--primary:active) {
+    background-color: #1aa397; // slightly darker for pressed
+    border-color: #1aa397;
+  }
+  .feedbackForm :global(.ms-Button.ms-Button--primary:focus) {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(32,178,170,0.25);
+  }
+
+  .messageError {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #f5c6cb;
+    margin-bottom: 15px;
+  }
+
+  .messageSuccess {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #c3e6cb;
+    margin-bottom: 15px;
+  }
+
+  &.teams {
+    padding: 10px;
+  }
+}

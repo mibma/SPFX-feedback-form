@@ -1,0 +1,20 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "customer-feedback-portal-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/customerFeedbackPortal/CustomerFeedbackPortalWebPart.js",
+          "manifest": "./src/webparts/customerFeedbackPortal/CustomerFeedbackPortalWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "CustomerFeedbackPortalWebPartStrings": "lib/webparts/customerFeedbackPortal/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
+    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
+  }
+}

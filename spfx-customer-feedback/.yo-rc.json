@@ -1,0 +1,18 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.21.0",
+    "sdksVersions": {},
+    "version": "1.21.1",
+    "libraryName": "spfx-customer-feedback",
+    "libraryId": "ac555a6a-cb10-4ca3-b49b-0b9169f3a1e5",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "spfx-customer-feedback",
+    "solutionShortDescription": "spfx-customer-feedback description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}
