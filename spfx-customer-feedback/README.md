@@ -1,73 +1,184 @@
-# spfx-customer-feedback
 
-## Summary
+# SPFX Feedback Form
 
-Short summary on functionality and used technologies.
-
-[picture of the solution in action, if possible]
-
-## Used SharePoint Framework Version
-
-![version](https://img.shields.io/badge/version-1.21.1-green.svg)
-
-## Applies to
-
-- [SharePoint Framework](https://aka.ms/spfx)
-- [Microsoft 365 tenant](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
-
-> Get your own free development tenant by subscribing to [Microsoft 365 developer program](http://aka.ms/o365devprogram)
-
-## Prerequisites
-
-> Any special pre-requisites?
-
-## Solution
-
-| Solution    | Author(s)                                               |
-| ----------- | ------------------------------------------------------- |
-| folder name | Author details (name, company, twitter alias with link) |
-
-## Version history
-
-| Version | Date             | Comments        |
-| ------- | ---------------- | --------------- |
-| 1.1     | March 10, 2021   | Update comment  |
-| 1.0     | January 29, 2021 | Initial release |
-
-## Disclaimer
-
-**THIS CODE IS PROVIDED _AS IS_ WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
+A SharePoint Framework (SPFx) web part that collects user feedback (rating + comments) and stores responses in a SharePoint list. This web part is Teams-aware (supports `hasTeamsContext`) and can be run in SharePoint or inside Microsoft Teams.
 
 ---
-
-## Minimal Path to Awesome
-
-- Clone this repository
-- Ensure that you are at the solution folder
-- in the command-line run:
-  - **npm install**
-  - **gulp serve**
-
-> Include any additional steps as needed.
+<img width="968" height="984" alt="image" src="https://github.com/user-attachments/assets/5dd063a6-89ba-4601-aa6f-c7e51a46eb38" />
 
 ## Features
 
-Description of the extension that expands upon high-level summary above.
+* Simple rating (1–5) and text comment form
+* Stores responses to a SharePoint list (`cloudlist')
+* Friendly for tenant trial/dev usage (can be adapted to use external email providers)
 
-This extension illustrates the following concepts:
+---
 
-- topic 1
-- topic 2
-- topic 3
+## Table of contents
 
-> Notice that better pictures and documentation will increase the sample usage and the value you are providing for others. Thanks for your submissions advance.
+1. [Prerequisites](#prerequisites)
+2. [Getting started (developer)](#getting-started-developer)
+3. [Configure SharePoint list](#configure-sharepoint-list)
+4. [Build & bundle](#build--bundle)
+5. [Package & deploy to App Catalog](#package--deploy-to-app-catalog)
+6. [Add web part to site / Teams](#add-web-part-to-site--teams)
+7. [Common issues & troubleshooting](#common-issues--troubleshooting)
+8. [Contributing](#contributing)
+9. [License & author](#license--author)
 
-> Share your web part with others through Microsoft 365 Patterns and Practices program to get visibility and exposure. More details on the community, open-source projects and other activities from http://aka.ms/m365pnp.
+---
 
-## References
+## Prerequisites
 
-- [Getting started with SharePoint Framework](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
-- [Building for Microsoft teams](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/build-for-teams-overview)
-- [Use Microsoft Graph in your solution](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/using-microsoft-graph-apis)
-- [Publish SharePoint Framework applications to the Marketplace](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/publish-to-marketplace-overview)
-- [Microsoft 365 Patterns and Practices](https://aka.ms/m365pnp) - Guidance, tooling, samples and open-source controls for your Microsoft 365 development
+* Node.js LTS (recommended v16 or v18 depending on SPFx toolchain used)
+* Yeoman and SharePoint generator (if you want to scaffold or modify):
+  `npm i -g yo @microsoft/generator-sharepoint`
+* Gulp CLI: `npm i -g gulp-cli`
+* Office 365 tenant with App Catalog (or dev tenant for local testing)
+* SharePoint Framework toolchain installed per your SPFx version
+* Git (for source control)
+
+---
+
+## Getting started (developer)
+
+1. Clone the repo:
+
+```bash
+git clone https://github.com/mibma/SPFX-feedback-form.git
+cd SPFX-feedback-form
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the local workbench (for SPFx web part local testing):
+
+```bash
+gulp serve --nobrowser
+```
+
+* Open the local workbench at: `https://localhost:5432/workbench` OR use SharePoint online workbench if connecting to tenant data.
+
+---
+
+## Configure SharePoint list
+
+Create a SharePoint list to store feedback. Example list settings:
+
+**List name:** `Feedback`
+**Columns:**
+
+* `Title` (single line) — can hold item identifier or subject
+* `Rating` (Number or Choice 1–5)
+* `Comments` (Multiple lines of text)
+* `SubmittedBy` (Person or use Created By)
+* `SubmittedOn` (Created date is fine)
+
+> If the web part expects a specific list name or internal column names, update the `constants` or configuration in the source where the list name and field internal names are defined.
+
+---
+
+## Build & bundle
+
+To create a production bundle and package:
+
+1. Build:
+
+```bash
+gulp build --ship
+```
+
+2. Bundle:
+
+```bash
+gulp bundle --ship
+```
+
+3. Package solution:
+
+```bash
+gulp package-solution --ship
+```
+
+This creates the `.sppkg` package under `sharepoint/solution/`.
+
+---
+
+## Package & deploy to App Catalog
+
+1. Upload the generated `.sppkg` file to your tenant App Catalog (SharePoint Admin Center → More features → Apps → App catalog).
+2. When prompted, choose whether to make it available to all sites.
+3. If you want to make the web part available in Microsoft Teams, enable the **Teams** option in the package settings or use the “Make this solution available in Microsoft Teams” checkbox (if included when packaging).
+
+---
+
+## Add web part to a site / Teams
+
+* **SharePoint site:** Go to a modern page → Edit → `+` → Add the web part (search by its name).
+* **Microsoft Teams:** If you enabled Teams packaging, you can add the app from the Teams App Catalog and then add it as a tab in a Team channel.
+
+---
+
+## Configuration & common code points
+
+* `hasTeamsContext?: boolean;` — optional prop indicating whether the web part is running inside Teams. The web part uses this to toggle CSS or layout via `styles.teams`.
+* Update list name or internal field names in the code if your SP list uses different columns. Typical locations:
+
+  * `src/webparts/<your-webpart>/components/<ComponentName>.tsx`
+  * `src/webparts/<your-webpart>/components/I<Interface>.ts` (prop definitions)
+  * `src/common/constants.ts` (if present)
+
+---
+
+## Troubleshooting
+
+### Flow shows “sent” but recipient doesn’t receive
+
+* Check the flow run outputs (To, Subject, message content).
+* If using tenant trial, outbound mail via the Outlook connector may be blocked. Use alternative such as Gmail connector or SMTP with external provider.
+* Inspect recipient mailbox (junk/quarantine) and run message trace (admin).
+
+### `gulp bundle --ship` or `package-solution` errors
+
+* Ensure correct Node version for SPFx version.
+* Clear `node_modules` and reinstall:
+
+  ```bash
+  rm -rf node_modules package-lock.json
+  npm install
+  ```
+* Re-run build steps.
+
+### Merge/push issues to GitHub
+
+* If `git push` fails with non-fast-forward, run:
+
+  ```bash
+  git pull --rebase origin main
+  # resolve conflicts if any
+  git push origin main
+  ```
+
+  or use `--force-with-lease` only if you are sure.
+
+---
+
+## Testing
+
+* Local: `gulp serve` + local workbench
+* Tenant: Add to a test site page and verify list entries are created correctly
+* Teams: Add as an app tab and confirm `hasTeamsContext` behavior
+
+---
+
+## Contributing
+
+1. Fork the repo
+2. Create a topic branch: `git checkout -b feat/my-change`
+3. Make changes and commit: `git commit -am "Describe change"`
+4. Push branch and open a Pull Request
+
